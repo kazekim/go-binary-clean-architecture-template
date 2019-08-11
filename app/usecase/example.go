@@ -7,10 +7,10 @@ import (
 )
 
 type exampleUseCase struct {
-	service service.ExampleService
+	service *service.ExampleService
 }
 
-func NewExampleUseCase(service service.ExampleService) *exampleUseCase {
+func NewExampleUseCase(service *service.ExampleService) *exampleUseCase {
 	return &exampleUseCase{
 		service: service,
 	}
