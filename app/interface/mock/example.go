@@ -11,8 +11,14 @@ func NewExampleRepository() *exampleRepository {
 	}
 }
 
-func (repo *exampleRepository) Greet(model entity.Example) (*string, error) {
+func (repo *exampleRepository) Greet(name string) (*entity.Example, error) {
 
-	text := "Hello! " + model.Name + "!"
-	return &text, nil
+	text := "Hello! " + name + "!"
+	yob := 1986
+
+	e := entity.Example{
+		Name: text,
+		YearOfBirth: &yob,
+	}
+	return &e, nil
 }

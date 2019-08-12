@@ -15,13 +15,13 @@ func NewExampleService(repo repository.ExampleRepository) *ExampleService {
 	}
 }
 
-func (service *ExampleService) DoSomething(model entity.Example) (*string, error) {
+func (service *ExampleService) DoSomething(name string) (*entity.Example, error) {
 
 
-	text, err := service.repo.Greet(model)
+	e, err := service.repo.Greet(name)
 	if err != nil {
 		return nil, err
 	}
 
-	return text, nil
+	return e, nil
 }

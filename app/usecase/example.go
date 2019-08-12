@@ -1,10 +1,15 @@
 package usecase
 
 import (
-	"github.com/kazekim/go-binary-clean-architecture-template/app/domain/entity"
 	"github.com/kazekim/go-binary-clean-architecture-template/app/domain/logic"
 	"github.com/kazekim/go-binary-clean-architecture-template/app/domain/service"
+	"github.com/kazekim/go-binary-clean-architecture-template/model"
 )
+
+type GreetInput struct {
+	Name string
+	Prefix *string
+}
 
 type exampleUseCase struct {
 	service *service.ExampleService
@@ -16,15 +21,23 @@ func NewExampleUseCase(service *service.ExampleService) *exampleUseCase {
 	}
 }
 
-func (useCase exampleUseCase) Greet(model entity.Example) (*string, error) {
+func (u exampleUseCase) Greet(input GreetInput) (*model.ExampleModel, error) {
+
+	e, err := u.service.DoSomething(input.Name);
+	if err != nil {
+		return nil, err
+	}
 
 	year := 1900
-	if model.YearOfBirth != nil {
-		year = *model.YearOfBirth
+	if e.YearOfBirth != nil {
+		year = *e.YearOfBirth
 	}
 	age := logic.CalculateAge(year)
 
-	model.Age = &age
+	m := model.ExampleModel{
+		Name: e.Name,
+		Age: &age,
+	}
 
-	return useCase.service.DoSomething(model)
+	return &m, nil
 }
